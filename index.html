@@ -125,6 +125,10 @@
         background: #f0f1f4; color: var(--ink-soft);
         border-bottom-left-radius: 5px; align-self: flex-start;
       }
+      .msg-link {
+        color: var(--gold-deep); text-decoration: underline;
+        overflow-wrap: anywhere;
+      }
       .bubble.cust {
         background: var(--gold); color: var(--ink); font-weight: 500;
         border-bottom-right-radius: 5px; align-self: flex-end;
@@ -267,7 +271,7 @@
 
           <div class="hero-visual">
             <div class="phone" role="img"
-                 aria-label="Example text conversation: after a missed call, the business texts the caller back and the caller replies.">
+                 aria-label="Example: after a missed call, the business automatically sends the caller a single text message containing a booking link and opt-out instructions.">
               <div class="phone-top">
                 <span class="miss-icon" aria-hidden="true">&#8601;</span>
                 <div>
@@ -277,15 +281,13 @@
               </div>
               <div class="thread" aria-hidden="true">
                 <div class="bubble biz">
-                  Hi, this is Main Street Plumbing — sorry we missed your call!
-                  How can we help?
-                </div>
-                <div class="bubble cust">Do you handle emergency leaks?</div>
-                <div class="bubble biz">
-                  We do. Someone can be out to you within the hour.
+                  Hi, this is Main Street Plumbing. Sorry we missed your call —
+                  you can book here:<br />
+                  <span class="msg-link">goldaction.net/mainstreet</span><br />
+                  Reply STOP to opt out.
                 </div>
               </div>
-              <div class="phone-foot">Reply STOP to opt out</div>
+              <div class="phone-foot">One automated message per missed call</div>
             </div>
           </div>
         </div>
@@ -300,12 +302,13 @@
             SMS service for small businesses. When a customer calls one of our
             client businesses and the call goes unanswered or reaches voicemail,
             our system automatically sends that caller a text message on the
-            business's behalf — acknowledging the missed call and inviting them
-            to reply by text. This gives the business a chance to respond in the
-            moment, so the caller stays engaged instead of hanging up and calling
-            a competitor. Messages are sent only in response to a call the
-            customer placed to the business, and every message identifies the
-            business it is sent for and includes instructions to opt out.
+            business's behalf — acknowledging the missed call and including a
+            link to book, order, or contact the business directly. This gives
+            the caller an immediate way to act, so they stay engaged instead of
+            hanging up and calling a competitor. Messages are sent only in
+            response to a call the customer placed to the business, and every
+            message identifies the business it is sent for and includes
+            instructions to opt out.
           </p>
         </div>
       </section>
@@ -331,16 +334,18 @@
               <div class="step-num">2</div>
               <h3>We text them back</h3>
               <p>
-                Within seconds the caller receives a text from your business
-                number, letting them know you saw the call and can help by text.
+                Within seconds the caller receives a single text from your
+                business number, letting them know you saw the call and giving
+                them a link to act on it.
               </p>
             </div>
             <div class="step">
               <div class="step-num">3</div>
-              <h3>The conversation continues</h3>
+              <h3>They book or get in touch</h3>
               <p>
-                They reply, you respond, and the customer stays with you instead
-                of moving on to the next business on their list.
+                The link takes them straight to your booking, ordering, or
+                contact page — so the lead stays with you instead of moving on
+                to the next business on their list.
               </p>
             </div>
           </div>
@@ -382,14 +387,19 @@
           <p class="section-intro">
             Our messages are replies, not campaigns. We do not send marketing or
             promotional blasts, and we never message a number that has not called
-            one of our client businesses.
+            one of our client businesses. A message may include a link to a
+            business-specific action page so you can book, order, or get in touch
+            without waiting on hold.
           </p>
           <div class="policy-grid">
             <div class="policy-item">
               <h3>Why you received a message</h3>
               <p>
                 You called a business that uses our service and the call was not
-                answered. The text is a direct reply to that call.
+                answered. The text is a direct reply to that call, and may
+                include a link to a business-specific action page — for example
+                booking, ordering, or contact — alongside the acknowledgement of
+                your missed call.
               </p>
             </div>
             <div class="policy-item">
@@ -404,8 +414,8 @@
             <div class="policy-item">
               <h3>Message frequency</h3>
               <p>
-                Varies, and depends on how often you call the business. Message
-                and data rates may apply.
+                One message per missed call. We do not send recurring or
+                scheduled messages. Message and data rates may apply.
               </p>
             </div>
             <div class="policy-item">
