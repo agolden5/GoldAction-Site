@@ -114,8 +114,8 @@
             describe the missed-call text-back service accurately and to satisfy
             carrier and A2P 10DLC review. It is not legal advice. Items marked
             <strong>REVIEW</strong> below are business or legal decisions that
-            need your confirmation — particularly the data retention period and
-            which state privacy laws apply to you.
+            need your confirmation — particularly which state privacy laws apply
+            to you.
           </div>
 
           <p>
@@ -271,8 +271,10 @@
           <ul>
             <li>
               <strong>Caller phone numbers, message content, and call
-              metadata:</strong> retained for RETENTION_PERIOD_HERE after the
-              message is sent, then deleted or de-identified.
+              metadata:</strong> retained for as long as we provide the service
+              to the client business, and afterward as needed to meet our legal,
+              tax, and compliance obligations, resolve disputes, and enforce our
+              agreements. We do not delete this data on a fixed schedule.
             </li>
             <li>
               <strong>Opt-out records:</strong> retained indefinitely. We must
@@ -290,15 +292,6 @@
               cannot be used to identify you.
             </li>
           </ul>
-          <div class="review">
-            <strong>REVIEW — decision needed:</strong> Set
-            <code>RETENTION_PERIOD_HERE</code> to a real period. Common choices
-            are 30, 90, or 180 days. Pick a period you can actually enforce in
-            your database and in Supabase, since stating a period you do not
-            honor is worse than stating a longer one. Note that Twilio separately
-            retains message bodies in its own logs under its retention settings,
-            which you may want to configure to match.
-          </div>
 
           <h2>6. Who we share information with</h2>
           <p>
