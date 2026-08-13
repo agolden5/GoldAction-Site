@@ -9,14 +9,19 @@
       content="Terms of Service for the Golden Intelligence LLC missed-call text-back SMS service, including messaging terms, opt-out, and client responsibilities."
     />
     <link rel="canonical" href="https://goldaction.net/terms/" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FFAA00'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial,sans-serif' font-size='19' font-weight='bold' fill='%23030213' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E"
+    />
     <style>
       :root {
-        --gold: #b8892b;
-        --gold-light: #d4a63c;
-        --ink: #16181d;
-        --body: #33383f;
-        --muted: #6b7280;
-        --line: #e3e6ea;
+        --gold: #ffaa00;          /* brand accent — fills only, never text */
+        --gold-deep: #8a5d00;     /* accessible gold for text and links */
+        --gold-soft: #fff6e3;
+        --ink: #030213;
+        --body: #3d4354;
+        --muted: #6f7585;
+        --line: #e4e7ec;
         --bg: #ffffff;
       }
       * { box-sizing: border-box; }
@@ -30,18 +35,26 @@
         -webkit-font-smoothing: antialiased;
       }
       .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
-      header.site { background: var(--ink); color: #fff; padding: 16px 0; }
+      header.site {
+        background: var(--ink); color: #fff; padding: 16px 0;
+        border-bottom: 3px solid var(--gold);
+      }
       header.site .wrap {
         display: flex; align-items: center; justify-content: space-between;
         gap: 16px; flex-wrap: wrap;
       }
-      .brand { font-weight: 700; font-size: 1.05rem; }
-      .brand a { color: #fff; text-decoration: none; }
-      .brand span { color: var(--gold-light); }
-      nav a { color: #c8ccd2; text-decoration: none; font-size: 0.9rem; margin-left: 20px; }
-      nav a:hover { color: #fff; text-decoration: underline; }
+      .brand { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
+      .brand a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 11px; }
+      .mark {
+        width: 28px; height: 28px; border-radius: 6px; background: var(--gold);
+        color: var(--ink); font-weight: 800; font-size: 0.95rem;
+        display: flex; align-items: center; justify-content: center; flex: none;
+      }
+      nav a { color: #b9bdc9; text-decoration: none; font-size: 0.9rem; margin-left: 22px; transition: color .15s; }
+      nav a:hover { color: var(--gold); }
       article { padding: 48px 0 24px; }
-      h1 { font-size: 1.9rem; color: var(--ink); margin: 0 0 6px; letter-spacing: -0.02em; }
+      h1 { font-size: 1.9rem; color: var(--ink); margin: 0 0 14px; letter-spacing: -0.025em; font-weight: 800; }
+      .rule { width: 46px; height: 3px; background: var(--gold); border-radius: 2px; margin: 0 0 16px; }
       .dates { color: var(--muted); font-size: 0.9rem; margin: 0 0 32px; }
       h2 {
         font-size: 1.1rem; color: var(--ink); margin: 36px 0 12px;
@@ -50,17 +63,22 @@
       p, li { font-size: 0.98rem; }
       ul { padding-left: 22px; }
       li { margin-bottom: 8px; }
-      a { color: var(--gold); }
+      a { color: var(--gold-deep); }
       .review {
-        background: #fff6d6; border-left: 3px solid #e0b400; padding: 10px 14px;
-        margin: 14px 0; font-size: 0.9rem; color: #6b5300; border-radius: 3px;
+        background: var(--gold-soft); border-left: 3px solid var(--gold); padding: 11px 15px;
+        margin: 14px 0; font-size: 0.9rem; color: #6b5300; border-radius: 4px;
       }
       .notice {
         background: #f7f8fa; border: 1px solid var(--line); padding: 14px 18px;
         border-radius: 4px; font-size: 0.93rem; margin: 24px 0;
       }
-      footer.site { padding: 28px 0 48px; font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--line); }
-      footer.site a { color: var(--muted); margin-right: 18px; }
+      footer.site {
+        background: var(--ink); color: #9ba0ae; padding: 34px 0;
+        font-size: 0.9rem; margin-top: 44px;
+      }
+      footer.site p { margin: 0 0 6px; }
+      footer.site a { color: #d5d8df; text-decoration: none; margin-right: 22px; }
+      footer.site a:hover { color: var(--gold); text-decoration: underline; }
       @media (max-width: 600px) {
         h1 { font-size: 1.55rem; }
         nav a { margin-left: 0; margin-right: 18px; }
@@ -71,7 +89,7 @@
     <header class="site">
       <div class="wrap">
         <div class="brand">
-          <a href="/">Golden <span>Intelligence</span> LLC</a>
+          <a href="/"><span class="mark" aria-hidden="true">G</span>Golden Intelligence LLC</a>
         </div>
         <nav>
           <a href="/">Home</a>
@@ -84,6 +102,7 @@
       <div class="wrap">
         <article>
           <h1>Terms of Service</h1>
+          <div class="rule"></div>
           <p class="dates">
             Effective date: EFFECTIVE_DATE_HERE &middot; Last updated:
             EFFECTIVE_DATE_HERE

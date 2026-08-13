@@ -6,75 +6,213 @@
     <title>Golden Intelligence LLC — Missed-Call Text-Back for Small Businesses</title>
     <meta
       name="description"
-      content="Golden Intelligence LLC provides an automated missed-call text-back SMS service that helps small businesses respond instantly when a customer call goes to voicemail."
+      content="Golden Intelligence LLC provides an automated missed-call text-back SMS service that helps small businesses respond instantly when a customer call goes unanswered."
     />
     <link rel="canonical" href="https://goldaction.net/" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FFAA00'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial,sans-serif' font-size='19' font-weight='bold' fill='%23030213' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E"
+    />
     <style>
       :root {
-        --gold: #b8892b;
-        --gold-light: #d4a63c;
-        --ink: #16181d;
-        --body: #33383f;
-        --muted: #6b7280;
-        --line: #e3e6ea;
+        --gold: #ffaa00;          /* brand accent — fills only, never text */
+        --gold-deep: #8a5d00;     /* accessible gold for text and links */
+        --gold-soft: #fff6e3;     /* tinted panels */
+        --gold-line: #f2d9a8;
+        --ink: #030213;           /* app's dark tone */
+        --ink-soft: #2a2d3d;
+        --body: #3d4354;
+        --muted: #6f7585;
+        --line: #e4e7ec;
         --bg: #ffffff;
-        --bg-alt: #f7f8fa;
+        --bg-alt: #fafbfc;
       }
       * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
       body {
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
+          "Helvetica Neue", Arial, sans-serif;
         color: var(--body);
         background: var(--bg);
         line-height: 1.65;
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
-      .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
-      header.site { background: var(--ink); color: #fff; padding: 16px 0; }
+      .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+      a { color: var(--gold-deep); }
+
+      /* ---------- header ---------- */
+      header.site {
+        background: var(--ink);
+        color: #fff;
+        border-bottom: 3px solid var(--gold);
+      }
       header.site .wrap {
         display: flex; align-items: center; justify-content: space-between;
-        gap: 16px; flex-wrap: wrap;
+        gap: 16px; flex-wrap: wrap; padding-top: 18px; padding-bottom: 18px;
       }
-      .brand { font-weight: 700; font-size: 1.05rem; letter-spacing: 0.01em; }
-      .brand span { color: var(--gold-light); }
+      .brand {
+        display: flex; align-items: center; gap: 11px;
+        font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; color: #fff;
+      }
+      .mark {
+        width: 30px; height: 30px; border-radius: 7px; background: var(--gold);
+        color: var(--ink); font-weight: 800; font-size: 1.02rem;
+        display: flex; align-items: center; justify-content: center; flex: none;
+      }
       nav a {
-        color: #c8ccd2; text-decoration: none; font-size: 0.9rem; margin-left: 20px;
+        color: #b9bdc9; text-decoration: none; font-size: 0.9rem;
+        margin-left: 24px; transition: color .15s;
       }
-      nav a:hover { color: #fff; text-decoration: underline; }
-      .hero { padding: 64px 0 48px; border-bottom: 1px solid var(--line); }
+      nav a:hover { color: var(--gold); }
+
+      /* ---------- hero ---------- */
+      .hero { padding: 76px 0 64px; background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+      .eyebrow {
+        display: inline-block; font-size: 0.73rem; font-weight: 700;
+        letter-spacing: 0.13em; text-transform: uppercase; color: var(--gold-deep);
+        background: var(--gold-soft); border: 1px solid var(--gold-line);
+        padding: 5px 11px; border-radius: 100px; margin-bottom: 22px;
+      }
       h1 {
-        font-size: 2.1rem; line-height: 1.2; color: var(--ink);
-        margin: 0 0 8px; letter-spacing: -0.02em;
+        font-size: clamp(2rem, 5.2vw, 3rem); line-height: 1.13; color: var(--ink);
+        margin: 0 0 20px; letter-spacing: -0.03em; font-weight: 800; max-width: 17ch;
       }
-      .tagline { font-size: 1.1rem; color: var(--gold); font-weight: 600; margin: 0 0 28px; }
-      .lead { font-size: 1.05rem; margin: 0; }
-      section { padding: 40px 0; border-bottom: 1px solid var(--line); }
+      h1 .accent {
+        background: linear-gradient(transparent 72%, var(--gold) 72%, var(--gold) 96%, transparent 96%);
+      }
+      .sub { font-size: 1.12rem; max-width: 60ch; margin: 0 0 32px; color: var(--ink-soft); }
+      .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+      .btn {
+        display: inline-block; background: var(--gold); color: var(--ink);
+        font-weight: 700; font-size: 0.95rem; text-decoration: none;
+        padding: 12px 24px; border-radius: 7px; transition: filter .15s;
+      }
+      .btn:hover { filter: brightness(0.93); }
+      .btn-ghost {
+        background: transparent; color: var(--ink);
+        border: 1px solid #cdd2da; font-weight: 600;
+      }
+      .btn-ghost:hover { border-color: var(--ink); filter: none; }
+
+      /* ---------- hero layout + phone mockup ---------- */
+      .hero-grid {
+        display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center;
+      }
+      .phone {
+        background: var(--bg); border: 1px solid var(--line); border-radius: 16px;
+        box-shadow: 0 18px 44px -18px rgba(3,2,19,.28), 0 2px 6px rgba(3,2,19,.05);
+        overflow: hidden; max-width: 340px; width: 100%; margin: 0 auto;
+      }
+      .phone-top {
+        display: flex; align-items: center; gap: 11px;
+        padding: 15px 18px; border-bottom: 1px solid var(--line); background: var(--bg-alt);
+      }
+      .miss-icon {
+        width: 30px; height: 30px; border-radius: 50%; background: #fdecec; color: #c0392b;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1rem; font-weight: 700; flex: none;
+      }
+      .phone-top strong { display: block; font-size: 0.88rem; color: var(--ink); }
+      .phone-top span { font-size: 0.78rem; color: var(--muted); }
+      .thread { padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+      .bubble {
+        font-size: 0.87rem; line-height: 1.5; padding: 10px 14px;
+        border-radius: 15px; max-width: 84%;
+      }
+      .bubble.biz {
+        background: #f0f1f4; color: var(--ink-soft);
+        border-bottom-left-radius: 5px; align-self: flex-start;
+      }
+      .bubble.cust {
+        background: var(--gold); color: var(--ink); font-weight: 500;
+        border-bottom-right-radius: 5px; align-self: flex-end;
+      }
+      .phone-foot {
+        padding: 11px 18px; border-top: 1px solid var(--line);
+        font-size: 0.74rem; color: var(--muted); text-align: center; background: var(--bg-alt);
+      }
+      @media (min-width: 900px) {
+        .hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
+        .phone { margin: 0 0 0 auto; }
+      }
+
+      /* ---------- sections ---------- */
+      section { padding: 68px 0; border-bottom: 1px solid var(--line); }
+      section.tinted { background: var(--bg-alt); }
       h2 {
-        font-size: 1.15rem; color: var(--ink); margin: 0 0 16px;
-        text-transform: uppercase; letter-spacing: 0.06em;
+        font-size: 1.6rem; color: var(--ink); margin: 0 0 14px;
+        letter-spacing: -0.02em; font-weight: 750;
       }
-      .contact p { margin: 0 0 8px; }
-      .contact a { color: var(--gold); }
-      .label { color: var(--muted); display: inline-block; min-width: 72px; }
-      footer.site { padding: 32px 0 48px; font-size: 0.9rem; color: var(--muted); }
-      footer.site a { color: var(--muted); margin-right: 18px; }
+      .section-intro { max-width: 62ch; margin: 0 0 40px; font-size: 1.02rem; }
+      .rule { width: 46px; height: 3px; background: var(--gold); border-radius: 2px; margin-bottom: 22px; }
+
+      /* ---------- steps ---------- */
+      .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      .step {
+        background: var(--bg); border: 1px solid var(--line);
+        border-radius: 10px; padding: 26px 24px 24px;
+      }
+      .step-num {
+        width: 32px; height: 32px; border-radius: 50%; background: var(--gold);
+        color: var(--ink); font-weight: 800; font-size: 0.9rem;
+        display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
+      }
+      .step h3 { font-size: 1rem; color: var(--ink); margin: 0 0 7px; font-weight: 700; }
+      .step p { margin: 0; font-size: 0.94rem; color: var(--muted); }
+
+      /* ---------- contact ---------- */
+      .contact-card {
+        background: var(--bg); border: 1px solid var(--line);
+        border-left: 4px solid var(--gold); border-radius: 8px; padding: 26px 28px;
+        max-width: 460px;
+      }
+      .contact-card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 9px 18px; }
+      .contact-card dt { color: var(--muted); font-size: 0.86rem; text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+      .contact-card dd { margin: 0; color: var(--ink); font-weight: 550; word-break: break-word; }
+
+      /* ---------- policy strip ---------- */
+      .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 40px; margin-top: 28px; }
+      .policy-item { border-top: 2px solid var(--gold); padding-top: 14px; }
+      .policy-item h3 { font-size: 0.93rem; color: var(--ink); margin: 0 0 5px; font-weight: 700; }
+      .policy-item p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+      kbd {
+        font-family: inherit; font-weight: 700; background: var(--ink); color: var(--gold);
+        padding: 1px 7px; border-radius: 4px; font-size: 0.85em;
+      }
+
+      /* ---------- footer ---------- */
+      footer.site { background: var(--ink); color: #9ba0ae; padding: 40px 0; font-size: 0.9rem; }
+      footer.site .wrap { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+      footer.site a { color: #d5d8df; text-decoration: none; margin-right: 22px; }
+      footer.site a:hover { color: var(--gold); text-decoration: underline; }
+
       .review {
-        background: #fff6d6; border-left: 3px solid #e0b400; padding: 10px 14px;
-        margin: 12px 0; font-size: 0.9rem; color: #6b5300; border-radius: 3px;
+        background: var(--gold-soft); border-left: 3px solid var(--gold);
+        padding: 11px 15px; margin: 0 0 20px; font-size: 0.88rem;
+        color: #6b5300; border-radius: 4px; max-width: 620px;
       }
-      @media (max-width: 600px) {
-        .hero { padding: 44px 0 32px; }
-        h1 { font-size: 1.7rem; }
-        nav a { margin-left: 0; margin-right: 18px; }
+
+      @media (max-width: 760px) {
+        .steps, .policy-grid { grid-template-columns: 1fr; }
+        .hero { padding: 52px 0 44px; }
+        section { padding: 48px 0; }
+        nav a { margin-left: 0; margin-right: 20px; }
+        header.site .wrap { gap: 10px; }
       }
     </style>
   </head>
   <body>
     <header class="site">
       <div class="wrap">
-        <div class="brand">Golden <span>Intelligence</span> LLC</div>
+        <div class="brand">
+          <span class="mark" aria-hidden="true">G</span>
+          Golden Intelligence LLC
+        </div>
         <nav>
+          <a href="#how">How it works</a>
+          <a href="#contact">Contact</a>
           <a href="/privacy/">Privacy</a>
           <a href="/terms/">Terms</a>
         </nav>
@@ -82,11 +220,52 @@
     </header>
 
     <main>
-      <div class="wrap">
-        <div class="hero">
-          <h1>Golden Intelligence LLC</h1>
-          <p class="tagline">Missed-call text-back for small businesses</p>
-          <p class="lead">
+      <div class="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Missed-Call Text-Back</span>
+            <h1>Never lose another customer to a <span class="accent">missed call</span>.</h1>
+            <p class="sub">
+              When a call to your business goes unanswered, we text the caller
+              back automatically — before they hang up and dial a competitor.
+            </p>
+            <div class="cta-row">
+              <a class="btn" href="#contact">Get in touch</a>
+              <a class="btn btn-ghost" href="#how">See how it works</a>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="phone" role="img"
+                 aria-label="Example text conversation: after a missed call, the business texts the caller back and the caller replies.">
+              <div class="phone-top">
+                <span class="miss-icon" aria-hidden="true">&#8601;</span>
+                <div>
+                  <strong>Missed call</strong>
+                  <span>Main Street Plumbing &middot; just now</span>
+                </div>
+              </div>
+              <div class="thread" aria-hidden="true">
+                <div class="bubble biz">
+                  Hi, this is Main Street Plumbing — sorry we missed your call!
+                  How can we help?
+                </div>
+                <div class="bubble cust">Do you handle emergency leaks?</div>
+                <div class="bubble biz">
+                  We do. Someone can be out to you within the hour.
+                </div>
+              </div>
+              <div class="phone-foot">Reply STOP to opt out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="about">
+        <div class="wrap">
+          <div class="rule"></div>
+          <h2>What we do</h2>
+          <p class="section-intro">
             Golden Intelligence LLC provides an automated missed-call text-back
             SMS service for small businesses. When a customer calls one of our
             client businesses and the call goes unanswered or reaches voicemail,
@@ -99,50 +278,120 @@
             business it is sent for and includes instructions to opt out.
           </p>
         </div>
+      </section>
 
-        <section class="contact">
+      <section id="how" class="tinted">
+        <div class="wrap">
+          <div class="rule"></div>
+          <h2>How it works</h2>
+          <p class="section-intro">
+            Three steps, with no app for your customer to install and nothing for
+            your staff to remember.
+          </p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <h3>A call goes unanswered</h3>
+              <p>
+                A customer calls your business and nobody is able to pick up, or
+                the call reaches voicemail.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <h3>We text them back</h3>
+              <p>
+                Within seconds the caller receives a text from your business
+                number, letting them know you saw the call and can help by text.
+              </p>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <h3>The conversation continues</h3>
+              <p>
+                They reply, you respond, and the customer stays with you instead
+                of moving on to the next business on their list.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="messaging">
+        <div class="wrap">
+          <div class="rule"></div>
+          <h2>Messaging policy</h2>
+          <p class="section-intro">
+            Our messages are replies, not campaigns. We do not send marketing or
+            promotional blasts, and we never message a number that has not called
+            one of our client businesses.
+          </p>
+          <div class="policy-grid">
+            <div class="policy-item">
+              <h3>Why you received a message</h3>
+              <p>
+                You called a business that uses our service and the call was not
+                answered. The text is a direct reply to that call.
+              </p>
+            </div>
+            <div class="policy-item">
+              <h3>Stopping messages</h3>
+              <p>
+                Reply <kbd>STOP</kbd> at any time to unsubscribe, or
+                <kbd>HELP</kbd> for support information.
+              </p>
+            </div>
+            <div class="policy-item">
+              <h3>Message frequency</h3>
+              <p>
+                Varies, and depends on how often you call the business. Message
+                and data rates may apply.
+              </p>
+            </div>
+            <div class="policy-item">
+              <h3>Your data</h3>
+              <p>
+                We do not sell or rent phone numbers or message content. See our
+                <a href="/privacy/">Privacy Policy</a> for full detail.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="tinted">
+        <div class="wrap">
+          <div class="rule"></div>
           <h2>Contact</h2>
           <div class="review">
-            <strong>REVIEW BEFORE MERGE:</strong> Replace the placeholders below
-            with the business contact details you want published. A2P 10DLC brand
-            vetting generally expects these to match the contact information on
-            your Twilio brand registration.
+            <strong>REVIEW BEFORE PUBLISHING:</strong> Replace the placeholders
+            below with the business contact details you want published. A2P 10DLC
+            brand vetting expects these to match your Twilio brand registration.
+            Delete this box once done.
           </div>
-          <p><span class="label">Business</span> Golden Intelligence LLC</p>
-          <p>
-            <span class="label">Email</span>
-            <a href="mailto:CONTACT_EMAIL_HERE">CONTACT_EMAIL_HERE</a>
-          </p>
-          <p>
-            <span class="label">Phone</span>
-            <a href="tel:CONTACT_PHONE_HERE">CONTACT_PHONE_HERE</a>
-          </p>
-          <p><span class="label">Web</span> <a href="https://goldaction.net/">goldaction.net</a></p>
-        </section>
-
-        <section>
-          <h2>Messaging Policy</h2>
-          <p>
-            Text messages are sent only to phone numbers that have placed a call
-            to a client business, and only in direct response to that call. We do
-            not send marketing or promotional campaigns to these numbers. Message
-            recipients can stop messages at any time by replying
-            <strong>STOP</strong>, or request help by replying
-            <strong>HELP</strong>. Message and data rates may apply. Full details
-            are in our <a href="/privacy/">Privacy Policy</a> and
-            <a href="/terms/">Terms of Service</a>.
-          </p>
-        </section>
-      </div>
+          <div class="contact-card">
+            <dl>
+              <dt>Business</dt>
+              <dd>Golden Intelligence LLC</dd>
+              <dt>Email</dt>
+              <dd><a href="mailto:CONTACT_EMAIL_HERE">CONTACT_EMAIL_HERE</a></dd>
+              <dt>Phone</dt>
+              <dd><a href="tel:CONTACT_PHONE_HERE">CONTACT_PHONE_HERE</a></dd>
+              <dt>Web</dt>
+              <dd><a href="https://goldaction.net/">goldaction.net</a></dd>
+            </dl>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site">
       <div class="wrap">
-        <p>
+        <div>
           <a href="/privacy/">Privacy Policy</a>
           <a href="/terms/">Terms of Service</a>
-        </p>
-        <p>&copy; 2026 Golden Intelligence LLC. All rights reserved.</p>
+        </div>
+        <div>&copy; 2026 Golden Intelligence LLC. All rights reserved.</div>
       </div>
     </footer>
   </body>

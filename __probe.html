@@ -1,0 +1,11 @@
+<!doctype html><body style="margin:0;font:16px monospace;background:#ddd">
+<div id=o style="padding:10px 14px;background:#111;color:#0f0"></div>
+<iframe id=f src="/" style="width:414px;height:1500px;border:0;display:block"></iframe>
+<script>
+f.onload=()=>{setTimeout(()=>{
+ const d=f.contentDocument.documentElement;
+ o.textContent='viewport='+f.contentWindow.innerWidth+
+   ' scrollW='+d.scrollWidth+' clientW='+d.clientWidth+
+   ' => '+(d.scrollWidth>d.clientWidth?'OVERFLOW by '+(d.scrollWidth-d.clientWidth)+'px':'NO OVERFLOW');
+},300);};
+</script></body>
