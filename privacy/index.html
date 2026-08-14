@@ -165,9 +165,10 @@
             </li>
             <li>
               <strong>SMS message content.</strong> The text of the automated
-              message we send, and the text of any reply you send back to that
-              number. Replies are delivered to the client business so they can
-              respond to you.
+              message we send. If you reply to that message, we receive your
+              reply and check it for opt-out keywords so that we can honor them.
+              We do not forward the content of your reply to the client
+              business.
             </li>
             <li>
               <strong>Message delivery status.</strong> Whether a message was
@@ -184,7 +185,7 @@
             We do not collect your name, email address, physical address, payment
             details, location data, or any other personal information from you as
             part of the text-back service, unless you choose to include such
-            information in a reply message you send to the business.
+            information in a reply you send to that number.
           </p>
 
           <h3>From client businesses</h3>
@@ -208,8 +209,8 @@
               business they called;
             </li>
             <li>
-              Route any reply from the caller to that business, and route the
-              business's response back to the caller;
+              Receive inbound replies and check them for opt-out keywords so
+              that opt-out requests are honored;
             </li>
             <li>
               Honor opt-out requests and maintain a suppression list of numbers
@@ -303,10 +304,11 @@
           </p>
           <ul>
             <li>
-              <strong>The client business you called.</strong> Your phone number
-              and any reply you send are provided to that business so they can
-              respond to your inquiry. Once the business receives your message,
-              their own privacy practices apply to their handling of it.
+              <strong>The client business you called.</strong> That business
+              receives your phone number and the record that you called and were
+              sent an automated reply, so they can follow up with you directly.
+              Their own privacy practices apply to their handling of that
+              information.
             </li>
             <li>
               <strong>Twilio Inc., our messaging and carrier gateway.</strong>
