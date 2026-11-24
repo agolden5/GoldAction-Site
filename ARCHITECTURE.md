@@ -4,7 +4,7 @@ The website is plain HTML, CSS, and browser JavaScript. GitHub Pages serves the 
 
 | Route | Responsibility |
 | --- | --- |
-| `/` | Missed-call text-back: hero with price and a fictional example text, how it works, pricing, messaging policy, and contact. Links to the consultancy. |
+| `/` | Missed-call text-back: hero with price and a fictional example text, a demo line to call, how it works, pricing, messaging policy, and contact. Links to the consultancy. |
 | `/privacy/` and `/terms/` | Existing SMS policies and terms. |
 | `/consulting/` | Consultancy, founder, product project, AI workflows, workshops, and a browser-only workshop brief builder. Inquiry links open the user's mail client with a topic and the existing support inbox. |
 | `/playground/` | Fictional inquiries with prewritten replies and human review steps. JavaScript updates the page in memory. Visitors can also request a live draft when an approved endpoint is configured. |
