@@ -1,63 +1,114 @@
-"use strict";
-
-const scenarios = {
-  estimate: {
-    inquiry: "Hi, the kitchen tap has been dripping since yesterday. Could someone come by Thursday afternoon, and do you charge for an estimate?",
-    draft: "Thanks for reaching out about the kitchen tap. I’ll check Thursday afternoon availability and confirm whether there’s an estimate fee. Is the water contained, or is it leaking into the cabinet?",
-    review: [
-      "Verify the appointment window and estimate fee before offering either.",
-      "Flag an active leak for the team’s urgent-response process.",
-    ],
-  },
-  booking: {
-    inquiry: "Could I move my Friday appointment to next Monday after 2? I’m not sure if there’s a rescheduling fee.",
-    draft: "I can check options for Monday after 2. Please use our usual booking channel so we can find your appointment and confirm what’s available. I’ll also check whether a rescheduling fee applies.",
-    review: [
-      "Verify the booking using the business’s existing process.",
-      "Check availability and the rescheduling policy before confirming a change.",
-    ],
-  },
-  workshop: {
-    inquiry: "Our six-person support team spends a lot of time emailing customers about order updates. Could we run a workshop on drafting those replies?",
-    draft: "Yes, order updates would be a good workflow to explore. We could map a typical inquiry, try a few fictional orders, and agree on which details a teammate should verify before sending a reply. Which type of order update takes the most time today?",
-    review: [
-      "Confirm workshop scope and dates before making a commitment.",
-      "Use fictional orders during the exercise and keep customer records out of the demo.",
-    ],
-  },
-};
+import { scenarios } from "./playground-scenarios.mjs";
 
 const demo = document.querySelector("#demo");
 const form = document.querySelector("#scenario-form");
 const inquiry = document.querySelector("#inquiry");
 const result = document.querySelector("#result");
 const status = document.querySelector("#result-status");
+const heading = document.querySelector("#draft-heading");
 const draft = document.querySelector("#draft");
 const review = document.querySelector("#review");
+const liveButton = document.querySelector("#live-draft");
+const liveNote = document.querySelector("#live-note");
+const endpoint = getLiveEndpoint(demo.dataset.liveEndpoint);
+let pending = null;
 
-function selectedScenario() {
-  return scenarios[form.elements.scenario.value];
+function getLiveEndpoint(value) {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    const local = location.hostname === "127.0.0.1" && url.hostname === "127.0.0.1";
+    if (url.username || url.password || url.search || url.hash || url.pathname !== "/api/generate") return null;
+    return url.protocol === "https:" || (local && url.protocol === "http:") ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function cancelLiveDraft() {
+  pending?.abort();
+  pending = null;
+  liveButton.disabled = false;
 }
 
 function showInquiry() {
-  inquiry.textContent = selectedScenario().inquiry;
+  cancelLiveDraft();
+  inquiry.textContent = scenarios[form.elements.scenario.value].inquiry;
   result.hidden = true;
-  status.textContent = "Select “Show sample draft” to see the reply and review steps.";
+  status.textContent = endpoint
+    ? "Show a sample draft or generate a reply with Claude."
+    : "Select “Show sample draft” to see the reply and review steps.";
 }
 
-form.addEventListener("change", showInquiry);
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const scenario = selectedScenario();
-  draft.textContent = scenario.draft;
-  review.replaceChildren(...scenario.review.map((item) => {
+function showDraft(output, live) {
+  heading.textContent = live ? "Claude-generated draft" : "Sample draft reply";
+  draft.textContent = output.draft;
+  review.replaceChildren(...output.review.map((item) => {
     const bullet = document.createElement("li");
     bullet.textContent = item;
     return bullet;
   }));
   result.hidden = false;
-  status.textContent = "Sample reply and review steps ready.";
+  status.textContent = live
+    ? "Claude draft ready. Check the details before using it."
+    : "Sample reply and review steps ready.";
+}
+
+function showLiveFallback(message) {
+  showDraft(scenarios[form.elements.scenario.value], false);
+  status.textContent = message;
+}
+
+form.addEventListener("change", showInquiry);
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  cancelLiveDraft();
+  showDraft(scenarios[form.elements.scenario.value], false);
 });
 
+liveButton.addEventListener("click", async () => {
+  if (!endpoint || pending) return;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20_000);
+  pending = controller;
+  liveButton.disabled = true;
+  result.hidden = true;
+  status.textContent = "Generating a draft with Claude…";
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "omit",
+      redirect: "error",
+      cache: "no-store",
+      signal: controller.signal,
+      body: JSON.stringify({ scenario: form.elements.scenario.value }),
+    });
+    if (pending !== controller) return;
+    if (response.status === 429) {
+      showLiveFallback("Live generation is at its limit. Here’s the sample draft instead.");
+    } else if (!response.ok) {
+      throw new Error("Live generation unavailable");
+    } else {
+      const output = await response.json();
+      if (pending === controller) showDraft(output, true);
+    }
+  } catch {
+    if (pending === controller) {
+      showLiveFallback("Claude couldn’t finish a draft. Here’s the sample draft instead.");
+    }
+  } finally {
+    clearTimeout(timeout);
+    if (pending === controller) {
+      pending = null;
+      liveButton.disabled = false;
+    }
+  }
+});
+
+if (endpoint) {
+  liveButton.hidden = false;
+  liveNote.hidden = false;
+}
 showInquiry();
 demo.hidden = false;
