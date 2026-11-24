@@ -12,8 +12,8 @@ export class PlaygroundBudget extends DurableObject {
     return this.ledger.reserve(visitor, Date.now());
   }
 
-  release(lease) {
-    this.ledger.release(lease);
+  release(lease, pause) {
+    this.ledger.release(lease, pause, Date.now());
   }
 }
 

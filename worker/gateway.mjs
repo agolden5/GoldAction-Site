@@ -1,5 +1,5 @@
 import { isScenario, scenarios } from "../assets/playground-scenarios.mjs";
-import { generateWithClaude } from "./anthropic.mjs";
+import { generateWithClaude, UsageGuardError } from "./anthropic.mjs";
 
 const MAX_REQUEST_BYTES = 128;
 const encoder = new TextEncoder();
@@ -95,13 +95,17 @@ export async function handleRequest(request, env, context, generate = generateWi
     });
   }
 
+  let pause = false;
   try {
     const output = await generate(scenarios[scenario].inquiry, env.ANTHROPIC_API_KEY);
     return reply(200, output, origin);
-  } catch {
+  } catch (error) {
+    pause = error instanceof UsageGuardError;
     return reply(502, { error: "generation_failed" }, origin);
   } finally {
-    // Release concurrency only. Failed or timed-out calls still consume their attempt.
-    context.waitUntil(Promise.resolve().then(() => budget.release(reservation.lease)).catch(() => {}));
+    // Spend remains reserved even if a response failed or timed out.
+    const release = Promise.resolve().then(() => budget.release(reservation.lease, pause)).catch(() => {});
+    if (pause) await release;
+    else context.waitUntil(release);
   }
 }

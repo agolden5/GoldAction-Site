@@ -1,8 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
-import { generateWithClaude } from "../anthropic.mjs";
+import { generateWithClaude, UsageGuardError } from "../anthropic.mjs";
 import { BudgetLedger, LIMITS } from "../budget.mjs";
+import { ATTEMPT_RESERVE_MICROS, MONTHLY_BUDGET_MICROS } from "../cost.mjs";
 import { handleRequest } from "../gateway.mjs";
 import { scenarios } from "../../assets/playground-scenarios.mjs";
 
@@ -25,8 +26,8 @@ function gateway(overrides = {}) {
       calls.push(["reserve", visitor]);
       return { lease: "test-lease" };
     },
-    async release(lease) {
-      calls.push(["release", lease]);
+    async release(lease, pause) {
+      calls.push(["release", lease, pause]);
     },
     ...overrides,
   };
@@ -57,7 +58,7 @@ test("the gateway sends only the fixed scenario after reserving and then release
   await Promise.all(g.tasks);
   assert.equal(g.calls[0][0], "reserve");
   assert.match(g.calls[0][1], /^[a-f0-9]{64}$/);
-  assert.deepEqual(g.calls.slice(1), [["provider", scenarios.estimate.inquiry, "fake-key"], ["release", "test-lease"]]);
+  assert.deepEqual(g.calls.slice(1), [["provider", scenarios.estimate.inquiry, "fake-key"], ["release", "test-lease", false]]);
 });
 
 test("malformed, unauthenticated-context, oversized, and disabled requests never reach the budget or provider", async () => {
@@ -101,33 +102,66 @@ test("provider failure returns a generic response with no retry", async () => {
   assert.equal(g.calls.at(-1)[0], "release");
 });
 
-test("the Claude adapter uses capped structured generation and rejects truncated or malformed drafts", async () => {
-  const data = { stop_reason: "end_turn", content: [{ type: "text", text: JSON.stringify(OUTPUT) }] };
+test("the Claude adapter counts input, caps structured generation, and rejects incomplete drafts", async () => {
+  const data = {
+    model: "claude-haiku-5-5",
+    usage: { input_tokens: 190, output_tokens: 40 },
+    stop_reason: "end_turn",
+    content: [{ type: "text", text: JSON.stringify(OUTPUT) }],
+  };
+  const sent = [];
   const answer = await generateWithClaude(scenarios.booking.inquiry, "fake-key", async (url, options) => {
-    assert.equal(url, "https://api.anthropic.com/v1/messages");
     assert.equal(options.headers["x-api-key"], "fake-key");
     assert.equal(options.redirect, "manual");
     const body = JSON.parse(options.body);
     assert.equal(body.model, "claude-haiku-5-5");
-    assert.equal(body.max_tokens, 256);
     assert.deepEqual(body.thinking, { type: "disabled" });
     assert.equal(body.output_config.effort, "low");
     assert.equal(body.output_config.format.type, "json_schema");
     assert.deepEqual(body.messages, [{ role: "user", content: scenarios.booking.inquiry }]);
-    return Response.json(data);
+    sent.push({ url, body });
+    return Response.json(url.endsWith("/count_tokens") ? { input_tokens: 200 } : data);
   });
   assert.deepEqual(answer, OUTPUT);
+  assert.equal(sent[0].url, "https://api.anthropic.com/v1/messages/count_tokens");
+  assert.equal(sent[1].url, "https://api.anthropic.com/v1/messages");
+  const { max_tokens, ...draftInput } = sent[1].body;
+  assert.equal(max_tokens, 256);
+  assert.deepEqual(sent[0].body, draftInput);
   await assert.rejects(generateWithClaude("sample", "fake-key", async () =>
     Response.redirect("https://example.com/", 302)));
-  await assert.rejects(generateWithClaude("sample", "fake-key", async () => Response.json({ ...data, stop_reason: "max_tokens" })));
-  await assert.rejects(generateWithClaude("sample", "fake-key", async () => Response.json({
+  const stub = (response) => async (url) => Response.json(url.endsWith("/count_tokens") ? { input_tokens: 200 } : response);
+  await assert.rejects(generateWithClaude("sample", "fake-key", stub({ ...data, stop_reason: "max_tokens" })));
+  await assert.rejects(generateWithClaude("sample", "fake-key", stub({
     ...data, content: [{ type: "text", text: '{"draft":"x","review":["one"]}' }],
   })));
+  await assert.rejects(generateWithClaude("sample", "fake-key", stub({
+    ...data, usage: { input_tokens: 4097, output_tokens: 40 },
+  })), UsageGuardError);
 });
 
-function ledger(t) {
+test("an oversized or unverifiable count never makes a paid generation request", async () => {
+  for (const count of [2049, -1, null]) {
+    const calls = [];
+    await assert.rejects(generateWithClaude("sample", "fake-key", async (url) => {
+      calls.push(url);
+      return Response.json({ input_tokens: count });
+    }));
+    assert.deepEqual(calls, ["https://api.anthropic.com/v1/messages/count_tokens"]);
+  }
+});
+
+test("unexpected billed usage asks the budget ledger to suspend the Worker", async () => {
+  const g = gateway();
+  g.setGenerator(async () => { throw new UsageGuardError("Unexpected output"); });
+  assert.equal((await g.run(request())).status, 502);
+  assert.deepEqual(g.calls.at(-1), ["release", "test-lease", true]);
+});
+
+function ledger(t, expose = () => {}) {
   const db = new DatabaseSync(":memory:");
   t.after(() => db.close());
+  expose(db);
   const sql = { exec(statement, ...args) {
     const rows = db.prepare(statement).all(...args);
     return { toArray: () => rows, one: () => rows[0] };
@@ -177,4 +211,30 @@ test("global day, month, and concurrency caps cannot be bypassed by additional v
   }
   assert.ok(service.reserve("extra", now + days * 86_400_000).retryAfter);
   assert.ok(service.reserve("extra", Date.UTC(2026, 11, 1)).lease);
+});
+
+test("a reservation cannot push the monthly USD ledger over the app budget", (t) => {
+  let db;
+  const service = ledger(t, (storage) => { db = storage; });
+  const now = Date.UTC(2026, 10, 24);
+  const monthEnd = Date.UTC(2026, 11, 1);
+  db.prepare("INSERT INTO counts VALUES ('monthly-spend', ?, ?)").run(
+    monthEnd, MONTHLY_BUDGET_MICROS - ATTEMPT_RESERVE_MICROS,
+  );
+  const accepted = service.reserve("visitor-one", now);
+  assert.ok(accepted.lease);
+  service.release(accepted.lease);
+  assert.equal(db.prepare("SELECT used FROM counts WHERE key = 'monthly-spend'").get().used, MONTHLY_BUDGET_MICROS);
+  assert.equal(service.reserve("visitor-two", now).retryAfter, (monthEnd - now) / 1000);
+  assert.ok(service.reserve("visitor-two", monthEnd).lease);
+});
+
+test("a provider usage anomaly blocks the rest of the UTC month", (t) => {
+  const service = ledger(t);
+  const now = Date.UTC(2026, 10, 24);
+  const monthEnd = Date.UTC(2026, 11, 1);
+  const first = service.reserve("visitor-one", now);
+  service.release(first.lease, true, now);
+  assert.equal(service.reserve("visitor-two", now).retryAfter, (monthEnd - now) / 1000);
+  assert.ok(service.reserve("visitor-two", monthEnd).lease);
 });
