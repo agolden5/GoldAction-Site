@@ -56,14 +56,14 @@
               <button class="button" type="submit">Show sample draft</button>
               <button id="live-draft" class="button button-secondary" type="button" aria-describedby="live-note" hidden>Generate with Claude</button>
             </div>
-            <p id="live-note" class="sample-note" hidden>We use your network address to limit requests. It is never sent to Claude. The playground does not send messages.</p>
+            <p id="live-note" class="sample-note" hidden>Live drafts have a daily limit of up to 5 per visitor. After that, you’ll see the sample draft instead. We use your network address to limit requests. It is never sent to Claude. The playground does not send messages.</p>
           </form>
         </section>
         <section class="demo-panel result-panel" aria-labelledby="result-title">
           <h2 id="result-title">Reply and review</h2>
           <p id="result-status" class="result-status" role="status">Choose an inquiry and select “Show sample draft.”</p>
           <div id="result" hidden>
-            <h3 id="draft-heading">Draft reply</h3>
+            <h3 class="result-head"><span id="draft-tag" class="result-tag">Sample</span> <span id="draft-heading">Draft reply</span></h3>
             <p id="draft" class="message"></p>
             <h3>Before sending</h3>
             <ul id="review"></ul>

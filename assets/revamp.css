@@ -298,3 +298,34 @@
   }
   .pricing-layout .price-card { margin-top: 0; }
 }
+
+/* Mobile UX fixes, 11/24/2026 */
+
+/* Plain summary and price right under the product heading, so a phone
+   visitor sees what it does and what it costs without scrolling. */
+.product-summary { max-width: 46ch; margin-top: .85rem; color: var(--ink); font-size: clamp(1.08rem, 2.2vw, 1.28rem); font-weight: 650; line-height: 1.4; }
+.product-price { margin-top: .5rem; color: var(--ink); font-size: clamp(1rem, 1.9vw, 1.12rem); }
+.product-price strong { font-weight: 850; }
+
+/* Text links get the same 44px tap target as nav and buttons. */
+.text-link { display: inline-flex; align-items: center; min-height: 2.75rem; }
+.contact-card dl { align-items: center; }
+.contact-card dd a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+
+/* Playground: tag every result as Sample or Live. */
+.result-head { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem .6rem; }
+.result-tag {
+  display: inline-block;
+  padding: .12rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 750;
+  letter-spacing: .02em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.result-tag.is-live { border-color: var(--gold-deep); background: var(--gold); color: var(--ink); }
+.result-panel { scroll-margin-top: 1rem; }

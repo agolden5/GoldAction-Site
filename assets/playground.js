@@ -6,6 +6,9 @@ const inquiry = document.querySelector("#inquiry");
 const result = document.querySelector("#result");
 const status = document.querySelector("#result-status");
 const heading = document.querySelector("#draft-heading");
+const tag = document.querySelector("#draft-tag");
+const resultPanel = document.querySelector(".result-panel");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const draft = document.querySelector("#draft");
 const review = document.querySelector("#review");
 const liveButton = document.querySelector("#live-draft");
@@ -42,6 +45,8 @@ function showInquiry() {
 
 function showDraft(output, live) {
   heading.textContent = live ? "Claude-generated draft" : "Sample draft reply";
+  tag.textContent = live ? "Live · Claude" : "Sample";
+  tag.classList.toggle("is-live", live);
   draft.textContent = output.draft;
   review.replaceChildren(...output.review.map((item) => {
     const bullet = document.createElement("li");
@@ -54,6 +59,14 @@ function showDraft(output, live) {
     : "Sample reply and review steps ready.";
 }
 
+// On a phone the result panel sits below the buttons, so bring it into view
+// after a tap. Skip the scroll when the panel's top is already on screen.
+function revealResult() {
+  const top = resultPanel.getBoundingClientRect().top;
+  if (top >= 0 && top < window.innerHeight * 0.6) return;
+  resultPanel.scrollIntoView({ block: "start", behavior: reduceMotion.matches ? "auto" : "smooth" });
+}
+
 function showLiveFallback(message) {
   showDraft(scenarios[form.elements.scenario.value], false);
   status.textContent = message;
@@ -64,6 +77,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   cancelLiveDraft();
   showDraft(scenarios[form.elements.scenario.value], false);
+  revealResult();
 });
 
 liveButton.addEventListener("click", async () => {
@@ -74,6 +88,7 @@ liveButton.addEventListener("click", async () => {
   liveButton.disabled = true;
   result.hidden = true;
   status.textContent = "Generating a draft with Claude…";
+  revealResult();
   try {
     const response = await fetch(endpoint, {
       method: "POST",
@@ -86,7 +101,7 @@ liveButton.addEventListener("click", async () => {
     });
     if (pending !== controller) return;
     if (response.status === 429) {
-      showLiveFallback("Live generation is at its limit. Here’s the sample draft instead.");
+      showLiveFallback("Live drafts are at their limit right now. Try again later. Below is the sample draft, not a Claude draft.");
     } else if (!response.ok) {
       throw new Error("Live generation unavailable");
     } else {
@@ -95,7 +110,7 @@ liveButton.addEventListener("click", async () => {
     }
   } catch {
     if (pending === controller) {
-      showLiveFallback("Claude couldn’t finish a draft. Here’s the sample draft instead.");
+      showLiveFallback("Claude couldn’t finish a draft. Below is the sample draft, not a Claude draft.");
     }
   } finally {
     clearTimeout(timeout);
