@@ -8,31 +8,37 @@
   <link rel="canonical" href="https://goldaction.net/consulting/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23FFAA00'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial,sans-serif' font-size='19' font-weight='bold' fill='%23030213' text-anchor='middle'%3EG%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="/assets/portfolio.css">
+  <link rel="stylesheet" href="/assets/revamp.css">
+  <link rel="stylesheet" href="/assets/site-shell.css">
+  <script src="/assets/site.js" defer></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site">
-    <div class="shell site-inner">
-      <a class="brand" href="/consulting/" aria-current="page"><span class="mark" aria-hidden="true">G</span> Golden Intelligence LLC</a>
-      <nav aria-label="Main navigation">
-        <a href="#work">Work</a>
-        <a href="#workshops">Workshops</a>
+
+  <a class="site-skip" href="#main">Skip to content</a>
+  <header class="site-top">
+    <div class="site-bound site-top-inner">
+      <a class="site-wordmark" href="/" aria-label="Golden Intelligence LLC home"><span class="site-mark" aria-hidden="true">G</span><span>Golden Intelligence<span class="site-llc"> LLC</span></span></a>
+      <button id="site-menu" class="site-menu" type="button" aria-controls="site-navigation" aria-expanded="false" hidden>Menu</button>
+      <nav id="site-navigation" class="site-primary" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#about">Missed-Call Text-Back</a>
+        <a href="/consulting/" aria-current="page">Consultancy</a>
         <a href="/playground/">Playground</a>
-        <a class="product-link" href="/">Missed-Call Text-Back</a>
+        <a href="/#contact" class="site-contact-link">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <section class="hero">
+  <main id="main" tabindex="-1">
+    <section class="hero consulting-hero">
       <div class="shell hero-grid">
         <div>
           <p class="eyebrow">AI consulting for small teams</p>
-          <h1>Make the next step easier.</h1>
+          <h1>Automate one workflow at a time.</h1>
           <p class="lede">We help teams turn scattered inquiries, notes, and follow-ups into workflows they can test, review, and use.</p>
           <div class="actions">
             <a class="button" href="mailto:support@goldaction.net?subject=AI%20workflow%20consultation">Discuss a workflow</a>
-            <a class="text-link" href="/playground/">Try the playground</a>
+            <a class="text-link" href="#brief">Build a workshop brief</a>
           </div>
         </div>
         <div class="workflow" aria-label="Example workflow for a service inquiry">
@@ -92,7 +98,40 @@
       <div class="workshop-steps">
         <div><h3>Map the workflow</h3><p>Bring a recurring task. We’ll map the inputs, decisions, and places that need a person’s judgment.</p></div>
         <div><h3>Prototype and review</h3><p>Try the workflow with fictional examples, look for likely mistakes, and agree on what a useful result would look like.</p></div>
-        <a class="text-link" href="mailto:support@goldaction.net?subject=AI%20workflow%20workshop">Ask about a workshop</a>
+        <a class="text-link" href="#brief">Build a workshop brief</a>
+      </div>
+    </section>
+
+    <section class="band" id="brief" aria-labelledby="brief-title">
+      <div class="shell section split brief-layout">
+        <div>
+          <p class="eyebrow">Workshop brief</p>
+          <h2 id="brief-title">Bring one task worth fixing.</h2>
+          <p>Choose a workflow and the decision you want a person to keep. Use the brief to start a workshop conversation.</p>
+        </div>
+        <div class="brief-panel" id="brief-panel">
+          <form id="brief-controls" hidden>
+            <label for="brief-work">Workflow</label>
+            <select id="brief-work" name="workflow">
+              <option value="intake">Sort incoming requests</option>
+              <option value="follow-up">Draft customer follow-ups</option>
+              <option value="handoff">Prepare team handoffs</option>
+            </select>
+            <label for="brief-check">A person should</label>
+            <select id="brief-check" name="checkpoint">
+              <option value="facts">Verify prices, dates, and availability</option>
+              <option value="exceptions">Decide when to escalate exceptions</option>
+              <option value="approval">Approve anything before it is sent</option>
+            </select>
+          </form>
+          <label for="brief-text">Your starting brief</label>
+          <textarea id="brief-text" rows="4" readonly>Workshop goal: Sort incoming requests. Use fictional examples to test the first draft. A teammate will verify prices, dates, and availability.</textarea>
+          <div class="brief-actions">
+            <button class="button" id="copy-brief" type="button" hidden>Copy brief</button>
+            <a class="text-link" href="mailto:support@goldaction.net?subject=AI%20workflow%20workshop">Ask about a workshop</a>
+          </div>
+          <p class="sample-note" id="brief-status" role="status">Your choices stay in this browser.</p>
+        </div>
       </div>
     </section>
 
@@ -106,14 +145,18 @@
     </section>
   </main>
 
-  <footer class="site footer">
-    <div class="shell site-inner">
-      <span>Golden Intelligence LLC</span>
+  <footer class="site-foot">
+    <div class="site-bound site-foot-inner">
+      <a class="site-wordmark" href="/" aria-label="Golden Intelligence LLC home"><span class="site-mark" aria-hidden="true">G</span><span>Golden Intelligence LLC</span></a>
       <nav aria-label="Footer navigation">
-        <a href="/">Missed-Call Text-Back</a>
+        <a href="/">Home</a>
+        <a href="/#about">Missed-Call Text-Back</a>
+        <a href="/consulting/">Consultancy</a>
+        <a href="/playground/">Playground</a>
         <a href="/privacy/">Privacy Policy</a>
         <a href="/terms/">Terms of Service</a>
       </nav>
+      <small>&copy; 2026 Golden Intelligence LLC. All rights reserved.</small>
     </div>
   </footer>
 </body>

@@ -1,16 +1,18 @@
 # Website architecture
 
-The website is plain HTML, CSS, and one browser script. GitHub Pages serves the root of `main` at `goldaction.net`. `CNAME` binds the domain and `.nojekyll` keeps the files unchanged during publication.
+The website is plain HTML, CSS, and browser JavaScript. GitHub Pages serves the root of `main` at `goldaction.net`. `CNAME` binds the domain and `.nojekyll` keeps the files unchanged during publication.
 
 | Route | Responsibility |
 | --- | --- |
-| `/` | Existing missed-call text-back funnel. The Consultancy link leads into the portfolio. |
+| `/` | Company introduction, browser-only workflow explorer, and the missed-call text-back funnel. |
 | `/privacy/` and `/terms/` | Existing SMS policies and terms. |
-| `/consulting/` | Consultancy, founder, product project, AI workflows, and workshops. Inquiry links open the user's mail client with a topic and the existing support inbox. |
+| `/consulting/` | Consultancy, founder, product project, AI workflows, workshops, and a browser-only workshop brief builder. Inquiry links open the user's mail client with a topic and the existing support inbox. |
 | `/playground/` | Fictional inquiries with prewritten replies and human review steps. JavaScript updates the page in memory. Visitors can also request a live draft when an approved endpoint is configured. |
-| `/assets/portfolio.css` and `/assets/playground.js` | Shared styles for the new pages and the playground's private-to-the-browser interaction. |
+| `/assets/site-shell.css` and `/assets/site.js` | Shared site navigation styles, mobile menu behavior, workflow explorer, and workshop brief builder. |
+| `/assets/portfolio.css` and `/assets/revamp.css` | Shared marketing page styles. |
+| `/assets/playground.js` | Sample and live draft controls. |
 
-The product's SMS operation is outside this repository. The site does not call Twilio or other messaging services. Sample mode uses no API, analytics, or browser persistence. Live mode sends only a fixed scenario ID. The Worker sends the matching fictional inquiry to Claude and stores quota counters separately.
+The product's SMS operation is outside this repository. The site does not call Twilio or other messaging services. The workflow explorer, workshop brief builder, and playground sample mode run in the browser without APIs, analytics, or storage. Copying a brief writes it to the visitor’s clipboard. Live mode sends only a fixed scenario ID. The Worker sends the matching fictional inquiry to Claude and stores quota counters separately.
 
 ## Environment and optional provider setup
 

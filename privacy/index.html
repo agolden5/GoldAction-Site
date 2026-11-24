@@ -35,23 +35,6 @@
         -webkit-font-smoothing: antialiased;
       }
       .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
-      header.site {
-        background: var(--ink); color: #fff; padding: 16px 0;
-        border-bottom: 3px solid var(--gold);
-      }
-      header.site .wrap {
-        display: flex; align-items: center; justify-content: space-between;
-        gap: 16px; flex-wrap: wrap;
-      }
-      .brand { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; }
-      .brand a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 11px; }
-      .mark {
-        width: 28px; height: 28px; border-radius: 6px; background: var(--gold);
-        color: var(--ink); font-weight: 800; font-size: 0.95rem;
-        display: flex; align-items: center; justify-content: center; flex: none;
-      }
-      nav a { color: #b9bdc9; text-decoration: none; font-size: 0.9rem; margin-left: 22px; transition: color .15s; }
-      nav a:hover { color: var(--gold); }
       article { padding: 48px 0 24px; }
       h1 { font-size: 1.9rem; color: var(--ink); margin: 0 0 14px; letter-spacing: -0.025em; font-weight: 800; }
       .rule { width: 46px; height: 3px; background: var(--gold); border-radius: 2px; margin: 0 0 16px; }
@@ -73,33 +56,31 @@
         background: #f7f8fa; border: 1px solid var(--line); padding: 14px 18px;
         border-radius: 4px; font-size: 0.93rem; margin: 24px 0;
       }
-      footer.site {
-        background: var(--ink); color: #9ba0ae; padding: 34px 0;
-        font-size: 0.9rem; margin-top: 44px;
-      }
-      footer.site p { margin: 0 0 6px; }
-      footer.site a { color: #d5d8df; text-decoration: none; margin-right: 22px; }
-      footer.site a:hover { color: var(--gold); text-decoration: underline; }
       @media (max-width: 600px) {
         h1 { font-size: 1.55rem; }
-        nav a { margin-left: 0; margin-right: 18px; }
       }
     </style>
+    <link rel="stylesheet" href="/assets/site-shell.css">
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
-    <header class="site">
-      <div class="wrap">
-        <div class="brand">
-          <a href="/"><span class="mark" aria-hidden="true">G</span>Golden Intelligence LLC</a>
-        </div>
-        <nav>
+
+    <a class="site-skip" href="#main">Skip to content</a>
+    <header class="site-top">
+      <div class="site-bound site-top-inner">
+        <a class="site-wordmark" href="/" aria-label="Golden Intelligence LLC home"><span class="site-mark" aria-hidden="true">G</span><span>Golden Intelligence<span class="site-llc"> LLC</span></span></a>
+        <button id="site-menu" class="site-menu" type="button" aria-controls="site-navigation" aria-expanded="false" hidden>Menu</button>
+        <nav id="site-navigation" class="site-primary" aria-label="Main navigation">
           <a href="/">Home</a>
-          <a href="/terms/">Terms</a>
+          <a href="/#about">Missed-Call Text-Back</a>
+          <a href="/consulting/">Consultancy</a>
+          <a href="/playground/">Playground</a>
+          <a href="/#contact" class="site-contact-link">Contact</a>
         </nav>
       </div>
     </header>
 
-    <main>
+    <main id="main" tabindex="-1">
       <div class="wrap">
         <article>
           <h1>Privacy Policy</h1>
@@ -415,13 +396,18 @@
       </div>
     </main>
 
-    <footer class="site">
-      <div class="wrap">
-        <p>
+    <footer class="site-foot">
+      <div class="site-bound site-foot-inner">
+        <a class="site-wordmark" href="/" aria-label="Golden Intelligence LLC home"><span class="site-mark" aria-hidden="true">G</span><span>Golden Intelligence LLC</span></a>
+        <nav aria-label="Footer navigation">
           <a href="/">Home</a>
+          <a href="/#about">Missed-Call Text-Back</a>
+          <a href="/consulting/">Consultancy</a>
+          <a href="/playground/">Playground</a>
+          <a href="/privacy/">Privacy Policy</a>
           <a href="/terms/">Terms of Service</a>
-        </p>
-        <p>&copy; 2026 Golden Intelligence LLC. All rights reserved.</p>
+        </nav>
+        <small>&copy; 2026 Golden Intelligence LLC. All rights reserved.</small>
       </div>
     </footer>
   </body>

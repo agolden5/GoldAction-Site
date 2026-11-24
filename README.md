@@ -1,10 +1,10 @@
 # goldaction.net
 
-Public website for **Golden Intelligence LLC**. The homepage presents the missed-call text-back service. The consultancy and workflow playground have their own pages.
+Public website for **Golden Intelligence LLC**. The homepage introduces the consultancy, the workflow explorer, and the missed-call text-back service. All five pages share the same header and footer navigation.
 
 | Path | Page |
 | --- | --- |
-| `index.html` | Missed-call text-back and pricing |
+| `index.html` | Company homepage, workflow explorer, and missed-call text-back and pricing |
 | `privacy/index.html` | Privacy Policy at `/privacy/` |
 | `terms/index.html` | Terms of Service at `/terms/` |
 | `consulting/index.html` | Consultancy and founder portfolio at `/consulting/` |
@@ -18,11 +18,11 @@ From the repository root, run:
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open <http://127.0.0.1:8000/>, then follow the Consultancy link. No dependencies, build step, API key, or environment setup are required. The playground uses prewritten replies by default. The optional live mode is disabled until an endpoint is configured.
+Open <http://127.0.0.1:8000/>, then follow the Consultancy link. No dependencies, build step, API key, or environment setup are required. Sample replies work in local preview. The configured live Worker accepts requests from the production site.
 
 ## Verify a change
 
-Run `git diff --check`. In the local preview, open all five pages and check the product anchors, pricing, support links and policies. Try all three playground scenarios with a keyboard and confirm that switching scenarios clears the old reply. Check the new pages at narrow and wide viewport sizes.
+Run `git diff --check`. In the local preview, open all five pages and check the product anchors, pricing, support links and policies. Try all three playground scenarios with a keyboard and confirm that switching scenarios clears the old reply. Check Home and the logo from each route at narrow and wide sizes. Use the keyboard to open and close the mobile menu, step through the homepage examples, and update the workshop brief. Confirm the playground still works in sample mode.
 
 ## Optional Claude playground
 
