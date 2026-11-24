@@ -1,10 +1,10 @@
 # goldaction.net
 
-Public website for **Golden Intelligence LLC**. The homepage introduces the consultancy, the workflow explorer, and the missed-call text-back service. All five pages share the same header and footer navigation.
+Public website for **Golden Intelligence LLC**. The homepage leads with the missed-call text-back service and links to the consultancy. All five pages share the same header and footer navigation.
 
 | Path | Page |
 | --- | --- |
-| `index.html` | Company homepage, workflow explorer, and missed-call text-back and pricing |
+| `index.html` | Homepage: missed-call text-back, how it works, pricing, and messaging policy |
 | `privacy/index.html` | Privacy Policy at `/privacy/` |
 | `terms/index.html` | Terms of Service at `/terms/` |
 | `consulting/index.html` | Consultancy and founder portfolio at `/consulting/` |
@@ -22,7 +22,7 @@ Open <http://127.0.0.1:8000/>, then follow the Consultancy link. No dependencies
 
 ## Verify a change
 
-Run `git diff --check`. In the local preview, open all five pages and check the product anchors, pricing, support links and policies. Try all three playground scenarios with a keyboard and confirm that switching scenarios clears the old reply. Check Home and the logo from each route at narrow and wide sizes. Use the keyboard to open and close the mobile menu, step through the homepage examples, and update the workshop brief. Confirm the playground still works in sample mode.
+Run `git diff --check`. In the local preview, open all five pages and check the product anchors, pricing, support links and policies. Try all three playground scenarios with a keyboard and confirm that switching scenarios clears the old reply. Check Home and the logo from each route at narrow and wide sizes. Use the keyboard to open and close the mobile menu, and update the workshop brief. Confirm the playground still works in sample mode.
 
 ## Optional Claude playground
 

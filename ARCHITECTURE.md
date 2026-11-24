@@ -4,15 +4,15 @@ The website is plain HTML, CSS, and browser JavaScript. GitHub Pages serves the 
 
 | Route | Responsibility |
 | --- | --- |
-| `/` | Company introduction, browser-only workflow explorer, and the missed-call text-back funnel. |
+| `/` | Missed-call text-back: hero with price and a fictional example text, how it works, pricing, messaging policy, and contact. Links to the consultancy. |
 | `/privacy/` and `/terms/` | Existing SMS policies and terms. |
 | `/consulting/` | Consultancy, founder, product project, AI workflows, workshops, and a browser-only workshop brief builder. Inquiry links open the user's mail client with a topic and the existing support inbox. |
 | `/playground/` | Fictional inquiries with prewritten replies and human review steps. JavaScript updates the page in memory. Visitors can also request a live draft when an approved endpoint is configured. |
-| `/assets/site-shell.css` and `/assets/site.js` | Shared site navigation styles, mobile menu behavior, workflow explorer, and workshop brief builder. |
+| `/assets/site-shell.css` and `/assets/site.js` | Shared site navigation styles, mobile menu behavior, and workshop brief builder. |
 | `/assets/portfolio.css` and `/assets/revamp.css` | Shared marketing page styles. |
 | `/assets/playground.js` | Sample and live draft controls. |
 
-The product's SMS operation is outside this repository. The site does not call Twilio or other messaging services. The workflow explorer, workshop brief builder, and playground sample mode run in the browser without APIs, analytics, or storage. Copying a brief writes it to the visitor’s clipboard. Live mode sends only a fixed scenario ID. The Worker sends the matching fictional inquiry to Claude and stores quota counters separately.
+The product's SMS operation is outside this repository. The site does not call Twilio or other messaging services. The workshop brief builder and playground sample mode run in the browser without APIs, analytics, or storage. Copying a brief writes it to the visitor’s clipboard. Live mode sends only a fixed scenario ID. The Worker sends the matching fictional inquiry to Claude and stores quota counters separately.
 
 ## Environment and optional provider setup
 
