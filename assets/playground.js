@@ -44,7 +44,7 @@ function showInquiry() {
 }
 
 function showDraft(output, live) {
-  heading.textContent = live ? "Claude-generated draft" : "Sample draft reply";
+  heading.textContent = "Draft reply";
   tag.textContent = live ? "Live · Claude" : "Sample";
   tag.classList.toggle("is-live", live);
   draft.textContent = output.draft;
