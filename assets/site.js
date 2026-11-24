@@ -43,46 +43,6 @@ if (menu && navigation) {
   updateNavigation();
 }
 
-const explorer = document.querySelector("#explorer-controls");
-if (explorer) {
-  const scenes = document.querySelectorAll("[data-workflow]");
-  const buttons = document.querySelector(".explorer-buttons");
-  const back = document.querySelector("#workflow-back");
-  const next = document.querySelector("#workflow-next");
-  const stages = [...explorer.elements.stage].map((input) => input.value);
-
-  function showWorkflowStep() {
-    const workflow = explorer.elements.workflow.value;
-    const stage = explorer.elements.stage.value;
-    for (const scene of scenes) {
-      scene.hidden = scene.dataset.workflow !== workflow;
-      for (const detail of scene.querySelectorAll("[data-stage]")) {
-        detail.hidden = detail.dataset.stage !== stage;
-      }
-    }
-    back.setAttribute("aria-disabled", String(stage === stages[0]));
-    next.setAttribute("aria-disabled", String(stage === stages.at(-1)));
-  }
-
-  explorer.addEventListener("change", (event) => {
-    if (event.target.name === "workflow") explorer.elements.stage.value = stages[0];
-    showWorkflowStep();
-  });
-
-  function moveStep(offset) {
-    const target = stages[stages.indexOf(explorer.elements.stage.value) + offset];
-    if (target === undefined) return;
-    explorer.elements.stage.value = target;
-    showWorkflowStep();
-  }
-
-  back.addEventListener("click", () => moveStep(-1));
-  next.addEventListener("click", () => moveStep(1));
-  showWorkflowStep();
-  explorer.hidden = false;
-  buttons.hidden = false;
-}
-
 const brief = document.querySelector("#brief-controls");
 if (brief) {
   const output = document.querySelector("#brief-text");
