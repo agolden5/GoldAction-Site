@@ -109,6 +109,7 @@ liveButton.addEventListener("click", async () => {
 if (endpoint) {
   liveButton.hidden = false;
   liveNote.hidden = false;
+  document.querySelector("#live-mode-key").hidden = false;
 }
 showInquiry();
 demo.hidden = false;
