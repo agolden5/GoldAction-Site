@@ -184,7 +184,10 @@ legend { margin-bottom: .55rem; padding: 0; }
 .option:has(input:checked) { border-color: var(--gold-deep); background: var(--gold-soft); font-weight: 700; }
 .option input { margin: 0; accent-color: var(--gold-deep); flex: none; }
 .message { padding: .85rem 1rem; border-radius: .55rem; background: var(--band); overflow-wrap: anywhere; }
-.demo-panel .button { margin-top: 1rem; }
+.demo-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
+.button-secondary { background: var(--bg); border-color: var(--line); color: var(--ink); }
+.button-secondary:hover { background: var(--gold-soft); }
+.button:disabled { opacity: .65; cursor: wait; }
 .result-panel { background: var(--band); }
 .result-panel .message { background: var(--bg); }
 #result { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
