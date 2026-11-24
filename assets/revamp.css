@@ -240,3 +240,9 @@
 }
 .result-tag.is-live { border-color: var(--gold-deep); background: var(--gold); color: var(--ink); }
 .result-panel { scroll-margin-top: 1rem; }
+
+/* Demo line, right under the hero. */
+.demo-line { background: var(--bg); }
+.demo-line h2 { max-width: 24ch; }
+.demo-line .section-intro a { font-weight: 750; white-space: nowrap; }
+.demo-note { max-width: 67ch; margin-top: 1rem; color: var(--muted); font-size: .9rem; }
