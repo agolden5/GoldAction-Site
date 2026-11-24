@@ -22,4 +22,4 @@ See [Worker setup](worker/README.md) for the deployment sequence, cost assumptio
 
 ## Deployment and rollback
 
-Review changes on the local branch. Merging into `main` can publish to Pages, so get Anthony's explicit approval for the reviewed changes before publishing. After an approved deploy, check the product, policy, portfolio, and demo routes without triggering external activity. If needed, revert the approved site commit on `main` and let Pages publish the revert.
+Review changes on the local branch. Merging into `main` can publish to Pages, so get the site owner’s explicit approval for the reviewed changes before publishing. After an approved deploy, check the product, policy, portfolio, and demo routes without triggering external activity. If needed, revert the approved site commit on `main` and let Pages publish the revert.
