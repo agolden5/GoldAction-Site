@@ -26,6 +26,8 @@ Run `git diff --check`. In the local preview, open all five pages and check the 
 
 ## Hosting and API design
 
-GitHub Pages publishes the repository root from `main`. Keep `CNAME` and `.nojekyll` in the repository root. Review production changes before merging.
+GitHub Pages publishes the repository root from `main`, so every file committed here is publicly served at goldaction.net. Keep internal plans and working notes out of the repository (`docs/` is gitignored for that).
 
-See [Architecture](ARCHITECTURE.md) for deployment, rollback, and optional live API design. See the [implementation plan](IMPLEMENTATION_PLAN.md) for scope and verification.
+Keep `CNAME` and `.nojekyll` in the repository root. Removing `CNAME` breaks the custom domain. `.nojekyll` makes Pages serve the files as-is. Review production changes before merging.
+
+See [Architecture](ARCHITECTURE.md) for deployment, rollback, and optional live API design.
