@@ -87,7 +87,7 @@
           <div class="rule"></div>
           <p class="dates">
             Effective date: August 13, 2026 &middot; Last updated:
-            November 24, 2026
+            November 25, 2026
           </p>
 
           <div class="notice">
@@ -147,7 +147,8 @@
             <li>
               <strong>SMS message content.</strong> The text of the automated
               message we send. If you reply to that message, we receive your
-              reply and check it for opt-out keywords so that we can honor them.
+              reply and check it for opt-out keywords and other requests to stop
+              so that we can honor them.
               The text of your reply is retained as described in Section 5. We
               do not forward the content of your reply to the client business.
             </li>
@@ -157,8 +158,9 @@
               with carrier error codes returned to us.
             </li>
             <li>
-              <strong>Opt-out status.</strong> If you reply STOP or a similar
-              keyword, we record that your number has opted out so that we do not
+              <strong>Opt-out status.</strong> If you reply STOP, another opt-out
+              keyword, or another clear request to stop, we record that your
+              number has opted out, with the date and time, so that we do not
               message you again.
             </li>
           </ul>
@@ -190,8 +192,8 @@
               business they called;
             </li>
             <li>
-              Receive inbound replies and check them for opt-out keywords so
-              that opt-out requests are honored;
+              Receive inbound replies and check them for opt-out keywords and
+              other requests to stop so that opt-out requests are honored;
             </li>
             <li>
               Honor opt-out requests and maintain a suppression list of numbers
@@ -235,12 +237,17 @@
           </p>
           <p>
             <strong>Opting out.</strong> You can stop messages at any time by
-            replying with any of the following keywords:
-            <strong>STOP</strong>, <strong>STOPALL</strong>,
-            <strong>UNSUBSCRIBE</strong>, <strong>CANCEL</strong>,
-            <strong>END</strong>, or <strong>QUIT</strong>. You will receive one
-            confirmation that you have been unsubscribed, and no further
-            automated messages will be sent to your number. Replying
+            replying <strong>STOP</strong>. We also accept
+            <strong>QUIT</strong>, <strong>END</strong>, <strong>REVOKE</strong>,
+            <strong>OPT OUT</strong>, <strong>CANCEL</strong>,
+            <strong>UNSUBSCRIBE</strong>, <strong>STOPALL</strong>, and
+            <strong>OPTOUT</strong>, in any capitalization, and we honor other
+            clear requests to stop, such as &ldquo;please stop texting me.&rdquo;
+            Your opt-out takes effect as soon as we receive it. You will receive
+            one confirmation that you have been unsubscribed, and no further
+            automated messages will be sent to your number from that business's
+            messaging number. To start receiving messages again, reply
+            <strong>START</strong>. Replying
             <strong>HELP</strong> returns information about this service,
             including how to contact us directly. Message and data rates may
             apply from your carrier.
