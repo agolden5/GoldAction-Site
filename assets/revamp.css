@@ -240,3 +240,12 @@
 }
 .result-tag.is-live { border-color: var(--gold-deep); background: var(--gold); color: var(--ink); }
 .result-panel { scroll-margin-top: 1rem; }
+
+/* Mobile UX follow-ups, 11/25/2026 */
+
+/* Contact email as a full-width button, one tap to a pre-addressed email. */
+.contact-card dd a.contact-email { display: flex; justify-content: center; width: 100%; text-align: center; overflow-wrap: anywhere; }
+
+/* Price on the consultancy page's product card. */
+.project .project-price { color: var(--ink); font-size: 1.05rem; }
+.project .project-price strong { font-weight: 850; }
