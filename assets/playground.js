@@ -101,7 +101,7 @@ liveButton.addEventListener("click", async () => {
     });
     if (pending !== controller) return;
     if (response.status === 429) {
-      showLiveFallback("Live drafts are at their limit right now. Try again later. Below is the sample draft, not a Claude draft.");
+      showLiveFallback("Live drafts are at their limit for now. Try again later, or compare with the sample below.");
     } else if (!response.ok) {
       throw new Error("Live generation unavailable");
     } else {
