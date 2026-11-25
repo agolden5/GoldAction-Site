@@ -11,11 +11,12 @@
   margin-inline: auto;
 }
 
+/* Design review 11/25: labels in the body face, sentence case, no tracking.
+   The monospace all-caps label read as template chrome. */
 .eyebrow {
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: .76rem;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .button { border-radius: .4rem; }
@@ -43,7 +44,8 @@
   line-height: 1;
 }
 
-.home-intro h1 em { color: #ffba41; font-style: normal; }
+/* One colour for the whole headline; gold is kept for the button and price. */
+.home-intro h1 em { color: inherit; font-style: normal; }
 .home-intro .lede { color: #dfdeea; }
 .home-intro .text-link { color: var(--paper); }
 .home-intro .text-link:hover { color: #ffcd73; }
@@ -91,7 +93,6 @@
 
 .product-section { padding-block: clamp(2.8rem, 6vw, 5.2rem); }
 .product-intro { border-top: 1px solid var(--line); background: var(--paper); }
-.product-section .rule { width: 2.6rem; height: .19rem; margin-bottom: 1rem; background: var(--gold); }
 .product-section .section-intro { max-width: 67ch; margin-top: 1rem; font-size: clamp(1rem, 1.8vw, 1.12rem); }
 .tinted { background: var(--band); }
 
@@ -137,6 +138,12 @@
 .price .per { font-weight: 650; }
 .price-terms { margin: .45rem 0 1.3rem; padding-left: 1.15rem; }
 .price-note { margin-top: 1rem; font-size: .92rem; }
+.price-cards { display: grid; gap: 1.25rem; margin-top: 1.65rem; }
+.price-cards .price-card { margin-top: 0; }
+.price-card-soon { border: 1px dashed #c9bfa9; border-top: .3rem solid var(--line); background: transparent; }
+.price-card-soon .price .amount { font-size: clamp(2rem, 4vw, 2.6rem); color: var(--body); }
+.price-card-soon .soon-tag { margin: 0 0 .45rem; color: var(--gold-deep); font-size: .9rem; font-weight: 700; }
+.price-card-soon .price-note { margin: 0 0 1.1rem; }
 .product-section kbd { padding: .08em .22em; border: 1px solid var(--line); border-radius: .2em; background: var(--paper); color: var(--ink); }
 .contact-card { max-width: 36rem; margin-top: 1.5rem; overflow-wrap: anywhere; }
 .contact-card dl { display: grid; grid-template-columns: max-content 1fr; gap: .45rem 1.1rem; margin: 0; }
@@ -208,6 +215,7 @@
     gap: clamp(2rem, 8vw, 6rem);
   }
   .pricing-layout .price-card { margin-top: 0; }
+  .pricing-layout .price-cards { margin-top: 0; }
 }
 
 /* Mobile UX fixes, 11/24/2026 */
