@@ -226,6 +226,11 @@
 .price-note { margin-top: 1rem; font-size: .92rem; }
 .product-section kbd { padding: .08em .22em; border: 1px solid var(--line); border-radius: .2em; background: var(--paper); color: var(--ink); }
 .contact-card { max-width: 36rem; margin-top: 1.5rem; overflow-wrap: anywhere; }
+.demo-card { max-width: 36rem; margin-top: 1.75rem; padding: 1.15rem 1.25rem; border: 1px solid var(--line); border-left: .3rem solid var(--gold); border-radius: .55rem; background: var(--bg); }
+.demo-card h3 { margin: 0; }
+.demo-card p { margin: .45rem 0 0; }
+.demo-card .demo-number { font-size: 1.35rem; font-weight: 750; }
+.demo-card .demo-number a { color: var(--ink); }
 .contact-card dl { display: grid; grid-template-columns: max-content 1fr; gap: .45rem 1.1rem; margin: 0; }
 .contact-card dt { color: var(--ink); font-weight: 750; }
 .contact-card dd { margin: 0; }
